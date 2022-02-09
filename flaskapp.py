@@ -31,5 +31,5 @@ def dashboard():
 	if ip==request.remote_addr:
 	return render_template('dashboard.html',name=name,uname=uname,eml=eml)
 	else:
-	return render_template('error.html',ip1=request.remote_addr)
+	return render_template('error.html',ip=ip,ip1=request.remote_addr)
 app.run()
