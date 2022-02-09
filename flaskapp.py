@@ -3,9 +3,7 @@ from cryptography.fernet import Fernet
 key = Fernet.generate_key()
 f = Fernet(key)
 app = Flask(_name_)
-@app.route('/')
-def root():
-	return render_template('login.html')
+
 @app.route('/login', methods=["GET","POST"])
 def login():
 	name=request.form['name'].strip()
