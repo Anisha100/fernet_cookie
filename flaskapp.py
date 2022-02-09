@@ -2,15 +2,17 @@ from flask import *
 from cryptography.fernet import Fernet
 key = Fernet.generate_key()
 f = Fernet(key)
-app = Flask(_name_)
+app = Flask(__name__)
 
-@app.route('/login', methods=["GET","POST"])
+@app.route('/')
+def index():
+	return render_template('login.html')
+
+@app.route('/login', methods=["POST","GET"])
 def login():
 	name=request.form['name'].strip()
 	uname=request.form['uname'].strip()
 	eml=request.form['eml'].strip()
-
-	
 	k=name+'$'+request.remote_addr+'$'+uname+'$'+eml
 	res=f.encrypt(k.encode()).decode()
 	resp = make_response(redirect('/dashboard'))
@@ -19,7 +21,7 @@ def login():
 @app.route('/dashboard')
 def dashboard():
 	username=request.cookies.get('username')
-	k=f.decrypt(id.encode()).decode()
+	k=f.decrypt(username.encode()).decode()
 	arr=k.split('$')
 	name=arr[0]
 	ip=arr[1]
@@ -27,7 +29,7 @@ def dashboard():
 	eml=arr[3]
 
 	if ip==request.remote_addr:
-	return render_template('dashboard.html',name=name,uname=uname,eml=eml)
+		return render_template('dashboard.html',name=name,uname=uname,eml=eml)
 	else:
-	return render_template('error.html',ip=ip,ip1=request.remote_addr)
-app.run()
+		return render_template('error.html',ip=ip,ip1=request.remote_addr)
+app.run(host='0.0.0.0', port=5000)
