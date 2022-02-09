@@ -20,16 +20,16 @@ def login():
 	return resp 
 @app.route('/dashboard')
 def dashboard():
-username=request.cookies.get('username')
-k=f.decrypt(id.encode()).decode()
-arr=k.split('$')
-name=arr[0]
-ip=arr[1]
-uname=arr[2]
-eml=arr[3]
+	username=request.cookies.get('username')
+	k=f.decrypt(id.encode()).decode()
+	arr=k.split('$')
+	name=arr[0]
+	ip=arr[1]
+	uname=arr[2]
+	eml=arr[3]
 
-if ip==request.remote_addr:
-return render_template('dashboard.html',name=name,uname=uname,eml=eml)
-else:
-return render_template('error.html',ip1=request.remote_addr)
+	if ip==request.remote_addr:
+	return render_template('dashboard.html',name=name,uname=uname,eml=eml)
+	else:
+	return render_template('error.html',ip1=request.remote_addr)
 app.run()
