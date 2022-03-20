@@ -29,7 +29,7 @@ def dashboard():
 	eml=arr[3]
 
 	if ip==request.remote_addr:
-		return render_template('dashboard.html',name=name,uname=uname,ip=ip,,eml=eml)
+		return render_template('dashboard.html',name=name,uname=uname,ip=ip,eml=eml)
 	else:
 		return render_template('error.html',ip=ip,ip1=request.remote_addr)
 app.run(host='0.0.0.0', port=5000)
